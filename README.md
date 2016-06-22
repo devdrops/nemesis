@@ -10,16 +10,16 @@
 1. Clone this repository, then `cd nemesis`;
 2. Install all dependencies by executing:
 
-```terminal
-composer install
-```
+    ```terminal
+    composer install
+    ```
 
 3. Then, `cd web/`;
 4. Once inside the `web` folder, run the command:
 
-```terminal
-php -S localhost:8081
-```
+    ```terminal
+    php -S localhost:8081
+    ```
 
 5. Then, in any browser, open `http://localhost:8081/index.php/repos/<any_github_username>` to check the first navigation.
 
