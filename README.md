@@ -2,6 +2,8 @@
 
 ### Requirements
 
+Make sure you have these requirements before installation:
+
 * PHP >= 5.6
 * Composer
 
