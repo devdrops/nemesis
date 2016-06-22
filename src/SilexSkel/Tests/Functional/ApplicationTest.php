@@ -2,7 +2,7 @@
 
 use Silex\WebTestCase;
 
-class IndexControllerTest extends WebTestCase
+class ApplicationTest extends WebTestCase
 {
     public function createApplication()
     {
@@ -13,16 +13,6 @@ class IndexControllerTest extends WebTestCase
         require __DIR__.'/../../../../app/routes.php';
         
         return $app;
-    }
-    
-    public function testPageSuccess()
-    {
-        $client = $this->createClient();
-        $crawler = $client->request('GET', '/');
-        
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertCount(1, $crawler->filter('h1:contains("Silex Skeleton Index Page, yay!")'));
     }
     
     public function testPageNotFound()

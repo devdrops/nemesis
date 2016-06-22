@@ -4,46 +4,22 @@
  * Application's settings.
  */
 
-use Silex\Provider\DoctrineServiceProvider;
-use Silex\Provider\MonologServiceProvider;
-use Silex\Provider\SessionServiceProvider;
-use Silex\Provider\TwigServiceProvider;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-
-$app->register(new SessionServiceProvider());
-
-$app->register(new DoctrineServiceProvider());
-
-$app->register(
-    new TwigServiceProvider(),
-    [
-        'twig.options' => [
-            'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
-            'strict_variables' => true,
-        ]
-    ]
-);
-
-$app->register(
-    new MonologServiceProvider(),
-    ['monolog.logfile' => __DIR__ . '/../logs/silex_app.log']
-);
-
-$app->error(function (\Exception $e, $code) use ($app) {
+$app->error(function (\Exception $exception, $code) use ($app) {
     if ($app['debug']) {
         return;
     }
 
     switch ($code) {
         case 404:
-            $message = 'The requested page could not be found.';
+            $message = ['status' => 404, 'content' => 'Resource not found.'];
             break;
         default:
-            $message = 'We are sorry, but something went terribly wrong.';
+            $message = ['status' => 500, 'content' => 'Application error :/'];
     }
 
-    return new Response($message, $code);
+    return new JsonResponse($message, $code);
 });
 
 return $app;

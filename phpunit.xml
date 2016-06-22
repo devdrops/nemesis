@@ -13,8 +13,11 @@
 >
 
     <testsuites>
-        <testsuite name="Skeleton Functional Tests">
+        <testsuite name="Application_Functional_Tests">
             <directory>./src/SilexSkel/Tests/Functional</directory>
+        </testsuite>
+        <testsuite name="Application_Unit_Tests">
+            <directory>./src/SilexSkel/Tests/Unit</directory>
         </testsuite>
     </testsuites>
 
