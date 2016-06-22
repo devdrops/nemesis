@@ -1,0 +1,29 @@
+{
+    "name": "devdrops/openshift-silex-application",
+    "description": "A Silex skeleton applied to OpenShift structure rules.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Davi Marcondes Moreira",
+            "email": "davi.marcondes.moreira@gmail.com"
+        }
+    ],
+    "require": {
+        "silex/silex": "v1.3.4",
+        "twig/twig": "v1.22.2",
+        "doctrine/dbal": "v2.5.2",
+        "monolog/monolog": "1.17.1"
+    },
+    "require-dev": {
+        "symfony/browser-kit": "^3.0",
+        "symfony/css-selector": "^3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "SilexSkel": "src/"
+        },
+        "psr-4": {
+            "SilexSkel\\": "src/"
+        }
+    }
+}
