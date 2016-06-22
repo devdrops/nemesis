@@ -47,6 +47,39 @@ class Results {
      */
     public function orderBy($criteria)
     {
+        $orderBy = null;
+        switch (strtolower($criteria)) {
+            case 'nameasc':
+                $orderBy = '';
+
+                break;
+            case 'namedesc':
+                $orderBy = '';
+
+                break;
+            case 'starasc':
+                $orderBy = '';
+
+                break;
+            case 'stardesc':
+                $orderBy = '';
+
+                break;
+            case 'issueasc':
+                $orderBy = '';
+
+                break;
+            case 'issuedesc':
+                $orderBy = '';
+
+                break;
+        }
+        
+            
+    }
+    
+    private function fetchByOrder()
+    {
         
     }
 }

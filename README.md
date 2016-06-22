@@ -36,3 +36,17 @@ Make sure you have these requirements before installation:
     **OBS:** supports only one ordenation per request.
 
 * `/repos/<github_username>/<language>` will provide the same list, but now filtering by the given `<language>`;
+
+### Executing the Tests
+
+1. First, you need to install PHPUnit, by executing the command:
+
+    ```terminal
+    composer global require "phpunit/phpunit=5.4.*"
+    ```
+
+2. Once PHPUnit is installed, navigate to the `nemesis` root folder and run:
+
+    ```terminal
+    phpunit -c phpunit.xml
+    ```
