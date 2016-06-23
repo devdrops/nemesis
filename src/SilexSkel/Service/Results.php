@@ -5,6 +5,7 @@ namespace SilexSkel\Service;
 use Github\Client;
 use Github\HttpClient\CachedHttpClient;
 use SilexSkel\Service\Sorter\Selection;
+use SilexSkel\Service\Sorter\Alphabetical;
 
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
@@ -61,13 +62,9 @@ class Results
         $response = $this->fetchAll();
         switch (strtolower($criteria)) {
             case 'nameasc':
-                $orderBy = null;
-
-                break;
+                return Alphabetical::sort($response, 'name', Alphabetical::SORT_ASC);
             case 'namedesc':
-                $orderBy = '';
-
-                break;
+                return Alphabetical::sort($response, 'name', Alphabetical::SORT_DESC);
             case 'starasc':
                 return Selection::sort($response, 'stargazers_count', Selection::SORT_ASC);
             case 'stardesc':

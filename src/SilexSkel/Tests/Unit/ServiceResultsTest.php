@@ -52,6 +52,9 @@ class ServiceResultsTest extends \PHPUnit_Framework_TestCase
     
     public function testStargazersAscendingOrder()
     {
+        $response = $this->subject->orderBy('nameDesc');
         
+        $this->assertTrue(is_array($response));
+        $this->assertTrue(count($response) == 30);
     }
 }
