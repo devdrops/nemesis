@@ -17,7 +17,7 @@ class LanguageControllerTest extends WebTestCase
         
         return $app;
     }
-    
+
     public function testFetchReposByLanguage()
     {
         $client = $this->createClient();

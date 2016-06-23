@@ -3,6 +3,7 @@
 namespace SilexSkel\Service;
 
 use Github\Client;
+use Github\HttpClient\CachedHttpClient;
 
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
@@ -21,7 +22,7 @@ class Results {
     
     public function __construct($username)
     {
-        $this->githubClient = new Client();
+        $this->githubClient = new Client(new CachedHttpClient(['cache_dir' => __DIR__.'/../../../app/cache']));
         $this->userName = $username;
     }
     
@@ -34,7 +35,7 @@ class Results {
      * @param string $language
      * @param string $order
      */
-    public function filterByLanguage($language, $order = 'asc')
+    public function filterByLanguage($language)
     {
         $list = $this->fetchAll();
         

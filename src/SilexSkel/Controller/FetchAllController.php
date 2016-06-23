@@ -24,7 +24,16 @@ class FetchAllController
         
         try {
             $content['status'] = 200;
+            
+            if (is_null($request->query->get('orderBy', null))) {
+                $content['content'] = $this->resultsService->fetchAll();
+            } else {
+                $content['content'] = $this->resultsService->orderBy($request->query->get('orderBy'));
+            }
             $content['content'] = $this->resultsService->fetchAll();
+        } catch (\Github\Exception\ApiLimitExceedException $exception) {
+            $content['status'] = 502;
+            $content['content'] = 'GitHub API limit has been reached :(';
         } catch (\Exception $exception) {
             $content['status'] = 500;
             $content['content'] = 'OUCH!';
