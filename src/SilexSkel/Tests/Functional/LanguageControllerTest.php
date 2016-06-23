@@ -21,7 +21,7 @@ class LanguageControllerTest extends WebTestCase
     public function testFetchReposByLanguage()
     {
         $client = $this->createClient();
-        $client->request('GET', '/repos/devdrops/ruby');
+        $client->request('GET', '/repos/devdrops/php');
         
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

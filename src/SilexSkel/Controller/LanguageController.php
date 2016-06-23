@@ -26,8 +26,6 @@ class LanguageController
             $content['status'] = 200;
             $content['content'] = $this->resultsService->filterByLanguage($request->get('language'));
         } catch (\Exception $exception) {
-            
-            
             $content['status'] = 500;
             $content['content'] = 'OUCH!';
         }

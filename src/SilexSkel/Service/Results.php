@@ -36,10 +36,19 @@ class Results {
      */
     public function filterByLanguage($language, $order = 'asc')
     {
-        //return $this->githubClient->api('search')->repositories('user:'.$this->userName);
-        $raw = $this->fetchAll();
+        $list = $this->fetchAll();
         
+        $sorted = [];
+        $other = [];
+        foreach ($list as $repository) {
+            if (strtolower($repository['language']) === strtolower($language)) {
+                $sorted[] = $repository;
+            } else {
+                $other[] = $repository;
+            }
+        }
         
+        return array_merge($sorted, $other);
     }
     
     /**

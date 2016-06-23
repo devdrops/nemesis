@@ -22,7 +22,7 @@ class ServiceResultsTest extends \PHPUnit_Framework_TestCase
         $response = $this->subject->fetchAll();
         
         $this->assertTrue(is_array($response));
-        $this->assertTrue(count($response) >= 30);
+        $this->assertTrue(count($response) == 30);
         
         $this->assertEquals($response[0]['id'], 61253445);
         $this->assertEquals($response[0]['name'], 'lemonade-stand');
@@ -31,8 +31,19 @@ class ServiceResultsTest extends \PHPUnit_Framework_TestCase
     
     public function testFetchbyLanguage()
     {
-        $response = $this->subject->filterByLanguage('scala');
+        $response = $this->subject->filterByLanguage('php');
         
         $this->assertTrue(is_array($response));
+        $this->assertTrue(count($response) == 30);
+        
+        $this->assertEquals($response[0]['id'], 3482588);
+        $this->assertEquals($response[0]['name'], 'SecLists');
+        $this->assertEquals($response[0]['full_name'], 'danielmiessler/SecLists');
+        $this->assertEquals($response[0]['language'], 'PHP');
+    }
+    
+    public function testAlphabeticalAscendingOrder()
+    {
+        
     }
 }
