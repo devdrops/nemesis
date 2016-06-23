@@ -5,7 +5,7 @@ use Silex\WebTestCase;
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
  */
-class LanguageControllerTest extends WebTestCase
+class OrderByNameTest extends WebTestCase
 {
     public function createApplication()
     {
@@ -17,11 +17,20 @@ class LanguageControllerTest extends WebTestCase
         
         return $app;
     }
-
-    public function testFetchReposByLanguage()
+    
+    public function testAscendingOrdenation()
     {
         $client = $this->createClient();
-        $client->request('GET', '/repos/devdrops/php');
+        $client->request('GET', '/repos/devdrops?orderBy=nameAsc');
+        
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+    
+    public function testDescendingOrdenation()
+    {
+        $client = $this->createClient();
+        $client->request('GET', '/repos/devdrops?orderBy=nameDesc');
         
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

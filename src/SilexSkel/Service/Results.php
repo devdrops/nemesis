@@ -3,12 +3,15 @@
 namespace SilexSkel\Service;
 
 use Github\Client;
+use Github\HttpClient\CachedHttpClient;
+use SilexSkel\Service\Sorter\Selection;
+use SilexSkel\Service\Sorter\Alphabetical;
 
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
  */
-class Results {
-    
+class Results
+{
     /**
      * @var \Github\Client 
      */
@@ -21,7 +24,7 @@ class Results {
     
     public function __construct($username)
     {
-        $this->githubClient = new Client();
+        $this->githubClient = new Client(new CachedHttpClient(['cache_dir' => __DIR__.'/../../../app/cache']));
         $this->userName = $username;
     }
     
@@ -34,12 +37,21 @@ class Results {
      * @param string $language
      * @param string $order
      */
-    public function filterByLanguage($language, $order = 'asc')
+    public function filterByLanguage($language)
     {
-        //return $this->githubClient->api('search')->repositories('user:'.$this->userName);
-        $raw = $this->fetchAll();
+        $list = $this->fetchAll();
         
+        $sorted = [];
+        $other = [];
+        foreach ($list as $repository) {
+            if (strtolower($repository['language']) === strtolower($language)) {
+                $sorted[] = $repository;
+            } else {
+                $other[] = $repository;
+            }
+        }
         
+        return array_merge($sorted, $other);
     }
     
     /**
@@ -47,6 +59,20 @@ class Results {
      */
     public function orderBy($criteria)
     {
-        
+        $response = $this->fetchAll();
+        switch (strtolower($criteria)) {
+            case 'nameasc':
+                return Alphabetical::sort($response, 'name', Alphabetical::SORT_ASC);
+            case 'namedesc':
+                return Alphabetical::sort($response, 'name', Alphabetical::SORT_DESC);
+            case 'starasc':
+                return Selection::sort($response, 'stargazers_count', Selection::SORT_ASC);
+            case 'stardesc':
+                return Selection::sort($response, 'stargazers_count', Selection::SORT_DESC);
+            case 'issueasc':
+                return Selection::sort($response, 'open_issues_count', Selection::SORT_ASC);
+            case 'issuedesc':
+                return Selection::sort($response, 'open_issues_count', Selection::SORT_DESC);
+        }
     }
 }
