@@ -44,6 +44,14 @@ class ServiceResultsTest extends \PHPUnit_Framework_TestCase
     
     public function testAlphabeticalAscendingOrder()
     {
+        $response = $this->subject->orderBy('nameAsc');
+        
+        $this->assertTrue(is_array($response));
+        $this->assertTrue(count($response) == 30);
+    }
+    
+    public function testStargazersAscendingOrder()
+    {
         
     }
 }

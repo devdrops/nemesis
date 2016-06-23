@@ -8,8 +8,8 @@ use Github\HttpClient\CachedHttpClient;
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
  */
-class Results {
-    
+class Results
+{
     /**
      * @var \Github\Client 
      */
@@ -57,10 +57,10 @@ class Results {
      */
     public function orderBy($criteria)
     {
-        $orderBy = null;
+        $response = $this->fetchAll();
         switch (strtolower($criteria)) {
             case 'nameasc':
-                $orderBy = '';
+                $orderBy = null;
 
                 break;
             case 'namedesc':
@@ -68,8 +68,28 @@ class Results {
 
                 break;
             case 'starasc':
-                $orderBy = '';
+                for ($counter = 0; $counter < count($response); $counter++) {
+                    $min = null;
+                    $minKey = null;
+                    $subject = null;
 
+                    for ($secondCounter = $counter; $secondCounter < count($response); $secondCounter++) {
+                        if (is_null($min) || $response[$secondCounter]['stargazers_count'] < $min) {
+                            $minKey = $secondCounter;
+                            $min = $response[$secondCounter]['stargazers_count'];
+                            $subject = $response[$secondCounter];
+                        }
+                    }
+
+                    $response[$minKey] = $response[$min];
+                    $response[$counter] = $min;
+                }
+
+                var_dump($response);
+                die();
+                
+                return $response;
+                
                 break;
             case 'stardesc':
                 $orderBy = '';
@@ -84,12 +104,9 @@ class Results {
 
                 break;
         }
-        
-            
     }
     
     private function fetchByOrder()
     {
-        
     }
 }
