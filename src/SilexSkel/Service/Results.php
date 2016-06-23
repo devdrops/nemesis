@@ -4,6 +4,7 @@ namespace SilexSkel\Service;
 
 use Github\Client;
 use Github\HttpClient\CachedHttpClient;
+use SilexSkel\Service\Sorter\Selection;
 
 /**
  * @author Davi Marcondes Moreira (@devdrops) <davi.marcondes.moreira@gmail.com>
@@ -68,45 +69,13 @@ class Results
 
                 break;
             case 'starasc':
-                for ($counter = 0; $counter < count($response); $counter++) {
-                    $min = null;
-                    $minKey = null;
-                    $subject = null;
-
-                    for ($secondCounter = $counter; $secondCounter < count($response); $secondCounter++) {
-                        if (is_null($min) || $response[$secondCounter]['stargazers_count'] < $min) {
-                            $minKey = $secondCounter;
-                            $min = $response[$secondCounter]['stargazers_count'];
-                            $subject = $response[$secondCounter];
-                        }
-                    }
-
-                    $response[$minKey] = $response[$min];
-                    $response[$counter] = $min;
-                }
-
-                var_dump($response);
-                die();
-                
-                return $response;
-                
-                break;
+                return Selection::sort($response, 'stargazers_count', Selection::SORT_ASC);
             case 'stardesc':
-                $orderBy = '';
-
-                break;
+                return Selection::sort($response, 'stargazers_count', Selection::SORT_DESC);
             case 'issueasc':
-                $orderBy = '';
-
-                break;
+                return Selection::sort($response, 'open_issues_count', Selection::SORT_ASC);
             case 'issuedesc':
-                $orderBy = '';
-
-                break;
+                return Selection::sort($response, 'open_issues_count', Selection::SORT_DESC);
         }
-    }
-    
-    private function fetchByOrder()
-    {
     }
 }
